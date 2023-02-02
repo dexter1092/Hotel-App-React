@@ -12,12 +12,14 @@ import 'material-react-toastify/dist/ReactToastify.css';
 
 const User = () => {
 
-	const [users, setUsers] = useState([])
-	const navigate = useNavigate();
+	const [users, setUsers] = useState([]);
+		const navigate = useNavigate();
 
-	const fetchData = async () => {
+	useEffect(() => {
+
+		const fetchData = async () => {
 		const response = await fetch(
-			"http://localhost:3000/api/v1/users/getusers", {
+			process.env.REACT_APP_HOST_URL + "api/v1/users/getusers", {
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json",
@@ -32,13 +34,11 @@ const User = () => {
 			localStorage.removeItem('token');
 			localStorage.removeItem('user_info');
 			toast.error(result.message);
-			navigate("/login");
+			navigate("/");
 		}
 	}
-
-	useEffect(() => {
-		fetchData()
-	},[]);
+		fetchData();
+	},[navigate]);
 	
 	return (
 		<div className="list">

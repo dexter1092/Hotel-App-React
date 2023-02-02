@@ -28,40 +28,39 @@ const AddUser = () => {
           setFormValues({...formValues, [name]:value});
       }
 
-     const submitData = async (formValues) => {
-          const data = {
-               user_type_id: formValues.user_type,
-               name: formValues.name,
-               email_id: formValues.email_id,
-               password: formValues.password
-          };
-
-          let result = await fetch("http://localhost:3000/api/v1/users/add-user", {
-               method: 'POST',
-               headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
-               },
-               body: JSON.stringify(data)
-          });
-          result = await result.json();
-          if (true === result.status) {
-               toast.success('User Added Successfully!!!');
-               navigate("/users");
-          } else {
-               navigate("/add-user");
-               toast.error(result.status.message);
-          }
-     } 
-
      useEffect(() => {
+          const submitData = async (formValues) => {
+               const data = {
+                    user_type_id: formValues.user_type,
+                    name: formValues.name,
+                    email_id: formValues.email_id,
+                    password: formValues.password
+               };
+
+               let result = await fetch(process.env.REACT_APP_HOST_URL + "api/v1/users/add-user", {
+                    method: 'POST',
+                    headers: {
+                         "Content-Type": "application/json",
+                         "Accept": "application/json",
+                         "Access-Control-Allow-Origin": "*",
+                         'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                    },
+                    body: JSON.stringify(data)
+               });
+               result = await result.json();
+               if (true === result.status) {
+                    toast.success('User Added Successfully!!!');
+                    navigate("/users");
+               } else {
+                    navigate("/add-user");
+                    toast.error(result.status.message);
+               }
+          } 
           if (Object.keys(formErrors).length === 0 && isSubmit) {
                submitData(formValues);
                
           }
-     },[formErrors]);
+     },[formErrors,navigate,formValues,isSubmit]);
 
      const handleSubmit = (event) => {
           event.preventDefault();

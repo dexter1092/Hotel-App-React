@@ -26,7 +26,7 @@ const Login = () => {
 
 		let credentials = { 'email_id':email, password };
 
-		let result = await fetch("http://localhost:3000/api/v1/authentication/login", {
+		let result = await fetch(process.env.REACT_APP_HOST_URL + "api/v1/authentication/login", {
 			method: 'POST',
 			headers: {
 				"Content-Type": "application/json",
@@ -39,7 +39,7 @@ const Login = () => {
 		if (true === result.status) {
 			dispatch({ type: "LOGIN", payload: JSON.stringify(jwt(result.token)), token: result.token })
 			toast.success('Succesfully Logged In!!!');
-			navigate("/");
+			navigate("/dashboard");
 		} else {
 			setError(true);
 			setErrorMessage(result.message);

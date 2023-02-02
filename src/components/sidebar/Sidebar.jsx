@@ -27,13 +27,13 @@ const Sidebar = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user_info');
     toast.info('Logged Out Successfully!!!');
-    navigate('/login');
+    navigate('/');
   }
 
   return (
     <div className="sidebar">
       <div className="top">
-        <NavLink to="/" style={{ textDecoration: "none" }}>
+        <NavLink to="/dashboard" style={{ textDecoration: "none" }}>
           <span className="logo">Hotel App</span>
         </NavLink>
       </div>
@@ -43,7 +43,7 @@ const Sidebar = () => {
           <p className="title">MAIN</p>
           <li>
             <DashboardIcon className="icon" />
-            <NavLink to="/">
+            <NavLink to="/dashboard">
               <span>Dashboard</span>
             </NavLink>
           </li>

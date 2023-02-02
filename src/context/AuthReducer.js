@@ -6,8 +6,6 @@ const AuthReducer = (state, action) => {
 				token: action.token
 
 			};
-			console.log(action.payload);
-			console.log(action.token);
 
 		}
 		case "LOGOUT": {

@@ -1,8 +1,9 @@
 import React from 'react';
+
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'material-react-toastify/dist/ReactToastify.css';
 // import Single from "./pages/single/Single";
 // import New from "./pages/new/New";
@@ -18,8 +19,8 @@ function App() {
      const { darkMode } = useContext(DarkModeContext);
      const { currentUser } = useContext(AuthContext);
      const RequireAuth = ({ children }) => {
-          if (currentUser === 'null') {
-               return < Navigate to="/login" />
+          if (currentUser === 'null' || currentUser === '') {
+               return < Navigate to="/" />
           } else {
                return children;
           }
@@ -30,8 +31,8 @@ function App() {
                <ToastContainer />
                <BrowserRouter>
                     <Routes>
-                         <Route path="login" element={< Login />} />
-                         <Route index path="/" element={
+                         <Route index path="/" element={< Login />} />
+                         <Route index path="/dashboard" element={
                               <RequireAuth>
                                    < Home />
                               </RequireAuth>}
